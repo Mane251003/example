@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block title %}Welcome{% endblock title %}
+
+{% block content %}
+    {% csrf_token %}
+<div class="wrapper sidenav-closed" ng-class="{ &#39;true&#39;: &#39;sidenav-opened&#39;, &#39;false&#39;: &#39;sidenav-closed&#39; }[layoutController.showMainMenu]">
+
+
+<!--suppress HtmlUnknownTarget -->
+<div ng-controller="TestRunnerController as vm" data-test-id="miniIPIP" class="">
+<div class="progress-container">
+    <div class="progress ng-isolate-scope" ng-transclude="">
+        <div id="percentagebar" class="progress-bar ng-isolate-scope" aria-valuenow="{{percentage}}" aria-valuemin="0" aria-valuemax="100"  aria-valuetext="{{percentage}}%" style="min-width: 0px; width: {{percentage}}%;" value="{{percentage}}"></div>
+    </div>
+</div>
+    <div class="container-fluid item-container" role="main">
+<div class="test-name">
+    <h3>Short Personality Test</h3>
+        <a href="/load/">
+            <div class="info"><span>i</span></div>
+        </a>
+</div>
+
+<div ng-show="vm.item != null" class="">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <div class="question">
+                <div  id="question" class="ng-binding">{{question}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-show="vm.item != null">
+        <!-- ngRepeat: option in vm.item.questions[0].question.options --><div class="options " style="float: left; width: 20%;">
+            <div class="option-container">
+                <div class="option ng-binding odd" onclick="respond(0)">Very Inaccurate</div>
+            </div>
+        </div><!-- end ngRepeat: option in vm.item.questions[0].question.options --><div class="options " style="float: left; width: 20%;">
+            <div class="option-container">
+                <div class="option ng-binding odd" onclick="respond(1)">Moderately Inaccurate</div>
+            </div>
+        </div><!-- end ngRepeat: option in vm.item.questions[0].question.options --><div class="options " style="float: left; width: 20%;">
+            <div class="option-container">
+                <div class="option ng-binding odd" onclick="respond(2)">Neither Inaccurate nor Accurate</div>
+            </div>
+        </div><!-- end ngRepeat: option in vm.item.questions[0].question.options --><div class="options " style="float: left; width: 20%;">
+            <div class="option-container">
+                <div class="option ng-binding odd" onclick="respond(3)">Moderately Accurate</div>
+            </div>
+        </div><!-- end ngRepeat: option in vm.item.questions[0].question.options --><div class="options " style="float: left; width: 20%;">
+            <div class="option-container">
+                <div class="option ng-binding odd" onclick="respond(4)">Very Accurate</div>
+            </div>
+        </div><!-- end ngRepeat: option in vm.item.questions[0].question.options -->
+    </div>
+</div>
+    </div>
+    <span class="next"><i class="glyphicon glyphicon-chevron-right"></i> </span>
+    <span class="prev"><i class="glyphicon glyphicon-chevron-left"></i></span>
+</div>
+
+</div>
+<div class="push"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+    var question_number = '{{qno|safe}}';
+    var questionid = '{{qid|safe}}';
+    var percentage = '{{percentage}}';
+    function send_post(questionnumber, qid, oindex){
+         var url = '/test/';
+        $.post(
+            url,
+            {
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                next: (parseInt(questionnumber)+1),
+                questionid: qid,
+                optionselected:oindex
+            },
+            function(data, status){
+                console.log(data);
+                if(data.status == 'redirect'){
+                    window.location.href = data.url;
+                }
+
+                if (data.status == 'ok'){
+                    $('#question').html(data.question);
+                    questionid = data.qid;
+                    question_number = data.qno;
+                    $('#percentagebar').val(data.percentage);
+                    percentage = data.percentage;
+                    $('#percentagebar')[0].style.width = data.percentage + '%';  
+                }
+                
+            }
+        );
+    }
+
+    $('.next').on('click', function(){
+        send_post(question_number, questionid, '');
+    });
+
+    $('.prev').on('click', function(){
+         send_post(question_number, questionid, '');
+    });
+
+    function respond(optionindex){
+         send_post(question_number, questionid, optionindex);
+    }
+
+   window.onbeforeunload = function (e) {
+
+        if (percentage < 80){
+            e = e || window.event;
+            // For IE and Firefox prior to version 4
+            if (e) {
+                e.returnValue = 'Sure?';
+            }
+
+            // For Safari
+            return 'Sure?';
+
+        }
+    };
+
+</script>
+
+{% endblock content %}

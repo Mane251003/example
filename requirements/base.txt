@@ -1,0 +1,65 @@
+# Wheel 0.25+ needed to install certain packages on CPython 3.5+
+# like Pillow and psycopg2
+# See http://bitly.com/wheel-building-fails-CPython-35
+# Verified bug on Python 3.5.1
+wheel==0.38.1
+
+# Bleeding edge Django
+django
+argon2_cffi
+
+# Configuration
+django-environ
+whitenoise
+
+
+# Forms
+django-braces
+django-crispy-forms
+
+# Models
+django-model-utils
+
+# Images
+Pillow
+
+# For user registration, either via email or social
+# Well-built with regular release cycles!
+django-allauth
+
+# On Windows, you must download/install psycopg2 manually
+# from http://www.lfd.uci.edu/~gohlke/pythonlibs/#psycopg
+
+
+# Unicode slugification
+awesome-slugify
+
+# Time zones support
+pytz
+
+# Redis support
+django-redis
+redis
+
+
+
+# Your custom requirements go here
+
+
+defusedxml
+
+djangorestframework
+mysqlclient
+oauthlib
+python3-openid
+requests==2.31.0
+requests-oauthlib
+python-memcached
+# git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk
+facebook-sdk
+# celery
+celery
+# django-celery
+django-debug-toolbar
+django-extensions
+Werkzeug

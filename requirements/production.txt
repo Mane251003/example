@@ -1,0 +1,30 @@
+# Pro-tip: Try not to put anything here. Avoid dependencies in
+#	production that aren't in development.
+-r base.txt
+
+# Python-PostgreSQL Database Adapter
+# If using Win for dev, this assumes Unix in prod
+# ------------------------------------------------
+
+psycopg2-binary>=2.9.9
+# WSGI Handler
+# ------------------------------------------------
+
+gunicorn==19.6.0
+gevent>=21.12.0
+greenlet>=2.0.2
+# Static and Media Storage
+# ------------------------------------------------
+boto==2.46.1
+
+django-storages>=1.13.2
+
+# Email backends for Mailgun, Postmark, SendGrid and more
+# -------------------------------------------------------
+django-anymail>=8.5
+
+# Raven is the Sentry client
+# --------------------------
+sentry-sdk>=1.25.1
+
+

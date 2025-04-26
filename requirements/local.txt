@@ -1,0 +1,31 @@
+# Local development dependencies go here
+-r base.txt
+
+coverage
+django-coverage-plugin
+
+Sphinx
+django-extensions
+Werkzeug
+django-test-plus
+factory-boy
+
+django-debug-toolbar
+
+# improved REPL
+ipdb
+
+pytest-django
+pytest-sugar
+
+
+defusedxml
+djangorestframework
+# mysqlclient==1.3.10
+oauthlib
+python3-openid
+requests
+requests-oauthlib
+# python-memcached
+# git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk
+psycopg2

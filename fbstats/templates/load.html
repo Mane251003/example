@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block title %}Welcome{% endblock title %}
+
+{% block content %}
+<article class="container-fluid" style="margin-bottom: 10%; margin-top: 2%;">
+    <form action="https://discovermyprofile.com/miniIPIP/introduction.html" method="post" class="ng-pristine ng-valid">
+        <h1>Short Personality Test - Introduction</h1>
+
+        <div>
+            <p></p><p>This test measures your BIG5 personality, one of the most popular scientific measures of personality. You will see 20 statements, one at a time, and you will be asked to evaluate the extent to which you agree with them. Please answer honestly with regard to how you see yourself in the present moment, not how you would like to be in the future. There are no incorrect answers nor any personality profile that is inherently more desirable than another.</p><p>If you would like an even more accurate measure of your personality traits, then please click <a href="#" target="_main">here</a> to take our 100-item version as well.</p><p><u>References</u></p><p>Donnellan, M.B., Oswald, F.L., Baird, B.M., &amp; Lucas, R.E. (2006). The mini-IPIP scales: Tiny-yet-effective measures of the Big Five factors of personality. Psychological Assessment, 18, 192-203</p><p></p>
+        </div>
+        <div class="col-md-12 text-center">
+            <a href="/test/" class="btn btn-primary" type="submit">Proceed</a>
+        </div>
+    </form>
+    <div class="push"></div>
+</article>
+{% endblock content %}
